@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd">
+
+	 <!-- mvc的注解驱动 -->
+	 <mvc:annotation-driven/>
+	 
+	 <!-- 其实一旦有了扫描器的定义，注解驱动：mvc:annotation-driven可以不需要，扫描器已经具备注解驱动的功能 -->
+	 <context:component-scan base-package="com.smxy.blog.*"/>
+	  
+	  <!-- 前缀 + viewName + 后缀 -->
+	  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	  	<!-- webapp到某一指定的文件夹的路径 -->
+	  	<property name="prefix" value="/WEB-INF/"></property>
+	  	<!-- 视图名称的后缀 -->
+	  	<property name="suffix" value=".jsp"></property>
+	  </bean>
+	  
+	  <!-- id="multipartResolver"必须是 multipartResolver -->
+	  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	  <!-- maxUploadSize:文件上传的最大值以Byte为单位 -->
+	  <property name="maxUploadSize" value="307200000"></property>
+	  </bean>
+	  
+	  <!-- 拦截器 -->
+	 <!-- <mvc:interceptors>
+	  	<mvc:interceptor>
+	  		&lt;!&ndash; 某一模块的拦截：/myPath/**，拦截所有请求：/** &ndash;&gt;
+	  		&lt;!&ndash; 以下是拦截参观者必须先进入index界面 &ndash;&gt;
+	  		<mvc:mapping path="/visit/forwar/**"/>
+	  		<bean class="cn.wzx.blog.interceptor.VisitInterceptor"></bean>
+	 	</mvc:interceptor>
+	 	
+	 	<mvc:interceptor>
+	  		&lt;!&ndash; 以下是拦截未登录企图进入管理界面的人员 &ndash;&gt;
+	  		<mvc:mapping path="/nimda/**"/>
+	  		<bean class="cn.wzx.blog.interceptor.ManageInterceptor"></bean>
+	 	</mvc:interceptor>
+	  </mvc:interceptors>-->
+</beans>
